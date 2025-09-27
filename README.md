@@ -11,7 +11,8 @@ A Windows tray utility that manages NumLock, CapsLock, and ScrollLock states.
 - Settings persistence between application restarts
 - Automatic startup option for Windows boot
 - Clean, minimal interface
-
+- GIMP images for AppIcon (icon.png) and LockIcon so you can create your own
+  
 ## Requirements
 - Python 3.x
 - pystray
