@@ -1,0 +1,6 @@
+{
+  "force_numlock_always_on": true,
+  "force_capslock_always_on": false,
+  "force_scrollock_always_on": false,
+  "start_at_bootup": false
+}
