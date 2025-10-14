@@ -1,0 +1,31 @@
+Starting TrayLocker
+Env logger initialized
+Single instance check passed
+Settings manager created
+Keys obtained: [NumLock, CapsLock, ScrollLock]
+[2025-10-14T11:29:21Z INFO  traylocker] Tray icon created for numlock
+[2025-10-14T11:29:21Z INFO  traylocker] Tray icon created for capslock
+[2025-10-14T11:29:21Z INFO  traylocker] Tray icon created for scrollock
+About to create tray icons
+Creating tray icon for numlock
+Icon loaded for numlock
+Tray icon built for numlock
+[2025-10-14T11:29:21Z INFO  traylocker] Tray icon created for numlock
+Creating tray icon for capslock
+Icon loaded for capslock
+Tray icon built for capslock
+[2025-10-14T11:29:21Z INFO  traylocker] Tray icon created for capslock
+Creating tray icon for scrollock
+Icon loaded for scrollock
+Tray icon built for scrollock
+[2025-10-14T11:29:21Z INFO  traylocker] Tray icon created for scrollock
+[2025-10-14T11:29:37Z INFO  traylocker] Menu event received: settings
+[2025-10-14T11:29:37Z INFO  traylocker] Received command: ShowSettings
+[2025-10-14T11:29:37Z INFO  traylocker::gui] Opening settings window
+
+thread '<unnamed>' panicked at C:\Users\leelo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\winit-0.30.12\src\platform_impl\windows\event_loop.rs:190:13:
+Initializing the event loop outside of the main thread is a significant cross-platform compatibility hazard. If you absolutely need to create an EventLoop on a different thread, you can use the `EventLoopBuilderExtWindows::any_thread` function.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+[2025-10-14T11:29:41Z INFO  traylocker] Menu event received: exit
+[2025-10-14T11:29:41Z INFO  traylocker] Received command: Shutdown
+TrayLocker shutting down...

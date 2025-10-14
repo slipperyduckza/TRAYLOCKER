@@ -1,0 +1,8 @@
+target/
+__pycache__/
+*.pyc
+build/
+*.spec
+AGENTS.md
+debug.txt
+*.exe
