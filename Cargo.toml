@@ -1,6 +1,6 @@
 [package]
 name = "traylocker"
-version = "0.1.0-beta"
+version = "0.1.2"
 edition = "2021"
 description = "A Windows system tray application that manages lock key states"
 authors = ["Your Name"]

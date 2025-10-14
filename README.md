@@ -1,6 +1,6 @@
 # TrayLocker
 
-**Version 0.1.0-beta**
+**Version 0.1.2**
 
 A Windows tray utility written in Rust that manages NumLock, CapsLock, and ScrollLock states.
 
