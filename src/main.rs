@@ -214,19 +214,26 @@ impl SettingsWindow {
 
     /// Show the settings window. This runs the GUI event loop until the window closes.
     pub fn show(&self) -> Result<(), Box<dyn std::error::Error>> {
-        // Set up the window options: size 400x400, active
+        log::info!("Attempting to show settings window");
+        // Set up the window options: size 400x400, active, using Wgpu renderer for better VM compatibility
         let options = eframe::NativeOptions {
+            renderer: eframe::Renderer::Wgpu,
             viewport: egui::ViewportBuilder::default()
                 .with_inner_size([400.0, 400.0])
                 .with_active(true),
             ..Default::default()
         };
         // Run the GUI app with our SettingsApp
-        eframe::run_native(
+        let result = eframe::run_native(
             "TrayLocker Settings", // Window title
             options,
             Box::new(|cc| Ok(Box::new(SettingsApp::new(self.settings_manager.clone(), cc)))), // Create the app
-        )?;
+        );
+        match &result {
+            Ok(_) => log::info!("Settings window closed successfully"),
+            Err(e) => log::error!("Failed to show settings window: {}", e),
+        }
+        result?;
         Ok(())
     }
 }
@@ -312,8 +319,13 @@ impl eframe::App for SettingsApp {
 /// This is the main function where the app starts.
 /// It sets up everything: settings, tray icons, background threads, and the main loop.
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
-    // Set up logging so we can see debug messages
-    env_logger::init();
+    // Set up logging to debug.log file in the binary's directory
+    let exe_path = std::env::current_exe().unwrap();
+    let log_path = exe_path.parent().unwrap().join("debug.log");
+    let log_file = std::fs::File::create(log_path).unwrap();
+    env_logger::Builder::new()
+        .target(env_logger::Target::Pipe(Box::new(log_file)))
+        .init();
 
     // Make sure only one copy of the app is running
     let instance = SingleInstance::new("TrayLocker_SingleInstance")?;
@@ -454,7 +466,10 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
         if let Ok(cmd) = rx.try_recv() {
             match cmd {
                 Command::ShowSettings => {
-                    let _ = settings_window.lock().unwrap().show(); // Open settings window
+                    log::info!("Received command to show settings");
+                    if let Err(e) = settings_window.lock().unwrap().show() {
+                        log::error!("Error showing settings window: {}", e);
+                    }
                 }
                 Command::Shutdown => {
                     shutdown_flag.store(true, Ordering::Relaxed); // Set shutdown flag
